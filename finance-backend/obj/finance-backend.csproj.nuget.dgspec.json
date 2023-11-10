@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Антон\\RiderProjects\\finance-backend\\finance-backend\\finance-backend.csproj": {}
+    "C:\\Projects\\finance-backend\\finance-backend\\finance-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Антон\\RiderProjects\\finance-backend\\finance-backend\\finance-backend.csproj": {
+    "C:\\Projects\\finance-backend\\finance-backend\\finance-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Антон\\RiderProjects\\finance-backend\\finance-backend\\finance-backend.csproj",
+        "projectUniqueName": "C:\\Projects\\finance-backend\\finance-backend\\finance-backend.csproj",
         "projectName": "finance-backend",
-        "projectPath": "C:\\Users\\Антон\\RiderProjects\\finance-backend\\finance-backend\\finance-backend.csproj",
+        "projectPath": "C:\\Projects\\finance-backend\\finance-backend\\finance-backend.csproj",
         "packagesPath": "C:\\Users\\Антон\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Антон\\RiderProjects\\finance-backend\\finance-backend\\obj\\",
+        "outputPath": "C:\\Projects\\finance-backend\\finance-backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,6 +44,26 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
