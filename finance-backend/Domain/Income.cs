@@ -5,10 +5,10 @@ namespace finance_backend.Data_access.Models;
 
 public class Income
 {
-    public Guid id { get; set; }
+    public Guid Id { get; set; }
 
-    public string title { get; set; } = "";
+    public string Title { get; set; } = "";
     
-    public float amount { get; set; }
+    public float Amount { get; set; }
     
 }

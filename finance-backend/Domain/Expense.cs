@@ -6,9 +6,9 @@ public class Expense
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid id { get; set; }
+    public Guid Id { get; set; }
 
-    public string title { get; set; } = "";
+    public string Title { get; set; } = "";
     
-    public Guid balanceId { get; set; }
+    public Guid BalanceId { get; set; }
 }

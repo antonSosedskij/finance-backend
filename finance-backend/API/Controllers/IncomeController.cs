@@ -40,20 +40,20 @@ public class IncomeController : Controller
     [HttpPut("{id}")]
     public IActionResult Put(Guid id, [FromBody] Income request)
     {
-        if (id != request.id)
+        if (id != request.Id)
         {
             BadRequest("Invalid request");
         }
         
-        Income existingIncome = db.incomes.FirstOrDefault(i => i.id == id);
+        Income existingIncome = db.incomes.FirstOrDefault(i => i.Id == id);
 
         if (existingIncome == null)
         {
             return NotFound();
         }
 
-        existingIncome.title = request.title;
-        existingIncome.amount = request.amount;
+        existingIncome.Title = request.Title;
+        existingIncome.Amount = request.Amount;
 
         db.SaveChanges();
         return Ok(existingIncome);

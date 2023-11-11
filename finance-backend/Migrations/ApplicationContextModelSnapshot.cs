@@ -24,77 +24,87 @@ namespace finance_backend.Migrations
 
             modelBuilder.Entity("finance_backend.Data_access.Models.Balance", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("categoryId");
+
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("categoryId")
-                        .HasColumnType("uuid");
+                    b.Property<float>("Percent")
+                        .HasColumnType("real")
+                        .HasColumnName("percent");
 
-                    b.Property<float>("percent")
-                        .HasColumnType("real");
-
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("balances", (string)null);
                 });
 
             modelBuilder.Entity("finance_backend.Data_access.Models.Category", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("finance_backend.Data_access.Models.Expense", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<Guid>("balanceId")
-                        .HasColumnType("uuid");
+                    b.Property<Guid>("BalanceId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("balanceId");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("expenses", (string)null);
                 });
 
             modelBuilder.Entity("finance_backend.Data_access.Models.Income", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.Property<float>("amount")
-                        .HasColumnType("real");
+                    b.Property<float>("Amount")
+                        .HasColumnType("real")
+                        .HasColumnName("amount");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("title");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("incomes", (string)null);
 
                     b.HasData(
                         new
                         {
-                            id = new Guid("35e3fe02-85f3-4713-a745-3b598fad63f2"),
-                            amount = 2000f,
-                            title = "Покупочки"
+                            Id = new Guid("1355bfe6-6e4f-4cf7-97df-dfa1dac530e8"),
+                            Amount = 2000f,
+                            Title = "Покупочки"
                         });
                 });
 #pragma warning restore 612, 618

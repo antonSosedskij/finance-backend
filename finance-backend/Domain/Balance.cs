@@ -7,9 +7,9 @@ public class Balance
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid id { get; set; }
+    public Guid Id { get; set; }
     
-    public float percent { get; set; }
+    public float Percent { get; set; }
     
-    public Guid categoryId { get; set; }
+    public Guid CategoryId { get; set; }
 }
