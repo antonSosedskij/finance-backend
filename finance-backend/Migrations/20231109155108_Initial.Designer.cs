@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using finance_backend.Data_access.Models;
+using finance_backend.DataAccess.Models;
 
 #nullable disable
 
@@ -25,7 +25,7 @@ namespace finance_backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("finance_backend.Data_access.Models.Balance", b =>
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Balance", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace finance_backend.Migrations
                     b.ToTable("balances", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.Data_access.Models.Category", b =>
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Category", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace finance_backend.Migrations
                     b.ToTable("categories", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.Data_access.Models.Expense", b =>
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Expense", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace finance_backend.Migrations
                     b.ToTable("expenses", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.Data_access.Models.Income", b =>
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Income", b =>
                 {
                     b.Property<Guid>("id")
                         .ValueGeneratedOnAdd()

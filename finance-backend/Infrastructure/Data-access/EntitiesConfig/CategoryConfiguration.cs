@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace finance_backend.Data_access.Models;
+namespace finance_backend.DataAccess.Models;
 
 public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {

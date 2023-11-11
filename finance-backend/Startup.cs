@@ -1,4 +1,4 @@
-﻿using finance_backend.Data_access.Models;
+﻿using finance_backend.DataAccess.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using finance_backend.Domain.Shared;
 
-namespace finance_backend.Data_access.Models;
+namespace finance_backend.DataAccess.Models;
 
-public class Income
+public class Income : MutableEntity<Guid>
 {
-    public Guid Id { get; set; }
-
     public string Title { get; set; } = "";
     
     public float Amount { get; set; }

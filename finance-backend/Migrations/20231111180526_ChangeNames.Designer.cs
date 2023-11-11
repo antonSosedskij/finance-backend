@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using finance_backend.DataAccess.Models;
@@ -11,9 +12,11 @@ using finance_backend.DataAccess.Models;
 namespace finance_backend.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231111180526_ChangeNames")]
+    partial class ChangeNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace finance_backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("finance_backend.DataAccess.Models.Balance", b =>
+            modelBuilder.Entity("finance_backend.Data_access.Models.Balance", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,48 +35,33 @@ namespace finance_backend.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<float>("Percent")
                         .HasColumnType("real")
                         .HasColumnName("percent");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("balances", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.DataAccess.Models.Category", b =>
+            modelBuilder.Entity("finance_backend.Data_access.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("title");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.ToTable("categories", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.DataAccess.Models.Expense", b =>
+            modelBuilder.Entity("finance_backend.Data_access.Models.Expense", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,26 +72,17 @@ namespace finance_backend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("balanceId");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("title");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.ToTable("expenses", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.DataAccess.Models.Income", b =>
+            modelBuilder.Entity("finance_backend.Data_access.Models.Income", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,19 +93,10 @@ namespace finance_backend.Migrations
                         .HasColumnType("real")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("title");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -135,9 +105,8 @@ namespace finance_backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fd0bb89b-bbfa-4704-b486-794ee0a25e62"),
+                            Id = new Guid("1355bfe6-6e4f-4cf7-97df-dfa1dac530e8"),
                             Amount = 2000f,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Покупочки"
                         });
                 });

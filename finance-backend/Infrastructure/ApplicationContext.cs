@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace finance_backend.Data_access.Models;
+namespace finance_backend.DataAccess.Models;
 
 public class ApplicationContext : DbContext
 {
