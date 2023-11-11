@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace finance_backend.Controllers;
 
 [ApiController]
-[Route("api/incomes")]
+[Route("api/Incomes")]
 public class IncomeController : Controller
 {
     public ApplicationContext db;
