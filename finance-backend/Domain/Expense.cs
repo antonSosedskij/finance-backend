@@ -1,14 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-namespace finance_backend.Data_access.Models;
+﻿using finance_backend.Domain.Shared;
 
-public class Expense
+namespace finance_backend.DataAccess.Models;
+
+public class Expense : MutableEntity<Guid>
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public Guid Id { get; set; }
-
-    public string Title { get; set; } = "";
+    public string Title { get; set; }
     
     public Guid BalanceId { get; set; }
 }

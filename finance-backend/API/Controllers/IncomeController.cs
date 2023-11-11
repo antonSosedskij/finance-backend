@@ -1,5 +1,4 @@
-﻿using finance_backend.Data_access.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿using finance_backend.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finance_backend.Controllers;
