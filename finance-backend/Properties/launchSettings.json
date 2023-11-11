@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "finance-backend": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61755;http://localhost:61756"
+    }
+  }
+}
