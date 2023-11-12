@@ -5,23 +5,18 @@ namespace finance_backend.Domain
 {
     public class User : MutableEntity<Guid>
     {
-        public User()
-        {
-            Category defaultCategory = new Category { Title = "Основное", UserId = Id };
-            Categories = new List<Category> { defaultCategory };
-            Balances = new List<Balance>
-            {
-                new Balance { CategoryId = defaultCategory.Id, Percent = 100 }
-            };
-        }
-
+        public Guid Id { get; set; }
         public string Username { get; set; }
 
         public string Email { get; set; }
-
-        public ICollection<Category> Categories { get; set; }
-
-        public ICollection<Balance> Balances { get; set; }
+        
+        public string Name { get; set; }
+        
+        public string Lastname { get; set; }
+        
+        // public ICollection<Category> Categories { get; set; }
+        //
+        // public ICollection<Balance> Balances { get; set; }
 
     }
 }
