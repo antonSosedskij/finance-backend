@@ -18,13 +18,5 @@ public class IncomeConfiguration : IEntityTypeConfiguration<Income>
             .HasColumnName("title");
         builder.Property(e => e.Amount)
             .HasColumnName("amount");
-        builder.HasData(
-            new Income
-            {
-                Id = Guid.NewGuid(),
-                Title = "Покупочки",
-                Amount = 2000
-            }
-        );
     }
 }
