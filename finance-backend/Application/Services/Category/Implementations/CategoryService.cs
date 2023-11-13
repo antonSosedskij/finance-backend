@@ -33,6 +33,7 @@ public class CategoryService : ICategoryService
             Id = Guid.NewGuid(),
             Title = request.Title,
             UserId = currentUserId,
+            CreatedDate = DateTime.UtcNow
         };
 
         await _categoryRepository.Save(category);
