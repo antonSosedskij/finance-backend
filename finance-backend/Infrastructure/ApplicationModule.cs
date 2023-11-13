@@ -1,3 +1,5 @@
+using finance_backend.Application.Services.Balance.Implementations;
+using finance_backend.Application.Services.Balance.Interfaces;
 using finance_backend.Application.Services.Category.Implementations;
 using finance_backend.Application.Services.Category.Interfaces;
 using finance_backend.Application.Services.User.Implementaitions;
@@ -11,7 +13,8 @@ public static class ApplicationModule
     {
         services
             .AddScoped<IUserService, UserService>()
-            .AddScoped<ICategoryService, CategoryService>();
+            .AddScoped<ICategoryService, CategoryService>()
+            .AddScoped<IBalanceService, BalanceService>();
 
         return services;
     }
