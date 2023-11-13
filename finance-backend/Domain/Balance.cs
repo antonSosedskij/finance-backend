@@ -1,10 +1,15 @@
 ﻿using finance_backend.Domain.Shared;
 
-namespace finance_backend.DataAccess.Models;
+namespace finance_backend.Domain;
 
 public class Balance : MutableEntity<Guid>
 {
-    public float Percent { get; set; }
+    public string Title { get; set; } 
+        
+    public decimal Percent { get; set; }
+    
+    //категория, к которой принадлежит баланс
+    public Category Category { get; set; }
     
     public Guid CategoryId { get; set; }
 }
