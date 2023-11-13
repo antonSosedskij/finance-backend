@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using finance_backend.DataAccess.Models;
+using finance_backend.Infrastructure;
 
 #nullable disable
 
@@ -217,34 +217,6 @@ namespace finance_backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("finance_backend.DataAccess.Models.Balance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("categoryId");
-
-                    b.Property<Guid>("CategoryId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<float>("Percent")
-                        .HasColumnType("real")
-                        .HasColumnName("percent");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("balances", (string)null);
-                });
-
             modelBuilder.Entity("finance_backend.DataAccess.Models.Expense", b =>
                 {
                     b.Property<Guid>("Id")
@@ -303,6 +275,39 @@ namespace finance_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("incomes", (string)null);
+                });
+
+            modelBuilder.Entity("finance_backend.Domain.Balance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Percent")
+                        .HasColumnType("numeric")
+                        .HasColumnName("percent");
+
+                    b.Property<DateTime?>("RemovedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("balances", (string)null);
                 });
 
             modelBuilder.Entity("finance_backend.Domain.Category", b =>
@@ -423,6 +428,17 @@ namespace finance_backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("finance_backend.Domain.Balance", b =>
+                {
+                    b.HasOne("finance_backend.Domain.Category", "Category")
+                        .WithMany("Balances")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("finance_backend.Domain.Category", b =>
                 {
                     b.HasOne("finance_backend.Domain.User", "User")
@@ -432,6 +448,11 @@ namespace finance_backend.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("finance_backend.Domain.Category", b =>
+                {
+                    b.Navigation("Balances");
                 });
 
             modelBuilder.Entity("finance_backend.Domain.User", b =>
