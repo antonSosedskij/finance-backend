@@ -1,5 +1,6 @@
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.DataAccess.Models.Identity;
+using finance_backend.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 
 namespace finance_backend.DataAccess.Models;

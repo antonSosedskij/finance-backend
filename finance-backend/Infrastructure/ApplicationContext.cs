@@ -1,10 +1,11 @@
-﻿using finance_backend.Domain;
+﻿using finance_backend.DataAccess.Models;
+using finance_backend.Domain;
 using finance_backend.Infrastructure.Data_access.EntitiesConfig;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace finance_backend.DataAccess.Models;
+namespace finance_backend.Infrastructure;
 
 public class ApplicationContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
 {

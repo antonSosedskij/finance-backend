@@ -1,4 +1,4 @@
-namespace finance_backend.API.Dto;
+namespace finance_backend.API.Dto.Category;
 
 public class CreateCategoryRequest
 {

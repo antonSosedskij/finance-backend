@@ -1,4 +1,5 @@
-﻿using finance_backend.Domain.Shared;
+﻿using finance_backend.DataAccess.Models;
+using finance_backend.Domain.Shared;
 
 namespace finance_backend.Domain;
 
@@ -9,4 +10,6 @@ public class Category : MutableEntity<Guid>
     public Guid UserId { get; set; }
 
     public User User { get; set; }
+    
+    public ICollection<Balance> Balances { get; set; }
 }
