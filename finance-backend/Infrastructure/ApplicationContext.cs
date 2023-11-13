@@ -1,4 +1,5 @@
 ﻿using finance_backend.Domain;
+using finance_backend.Infrastructure.Data_access.EntitiesConfig;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
