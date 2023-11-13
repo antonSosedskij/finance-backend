@@ -32,6 +32,8 @@ public class Startup
         });
 
         services.AddDataAccessModule(Configuration.GetConnectionString("DefaultConnection"));
+
+        services.AddHttpContextAccessor();
         services.AddIdentity(Configuration);
 
         
