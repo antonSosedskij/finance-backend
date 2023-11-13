@@ -24,4 +24,9 @@ public class Repository<TEntity, TId> : IRepository<TEntity, TId>
         }
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<TEntity> FindById(TId id)
+    {
+        return await _context.FindAsync<TEntity>(new object[] {id});
+    }
 }
