@@ -4,6 +4,7 @@ using System.Text;
 using finance_backend.Application.Identity.Contracts;
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
+using finance_backend.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,19 +17,29 @@ public class IdentityService : IIdentityService
     private readonly SignInManager<IdentityUser<Guid>> _signInManager;
     private readonly IConfiguration _configuration;
     private readonly IRepository<Domain.User, Guid> _userRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     
     public IdentityService( 
         UserManager<IdentityUser<Guid>> userManager,
         SignInManager<IdentityUser<Guid>> signInManager,
         IConfiguration configuration,
-        IRepository<Domain.User, Guid> repository)
+        IRepository<Domain.User, Guid> repository,
+        IHttpContextAccessor httpContextAccessor)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _configuration = configuration;
         _userRepository = repository;
+        _httpContextAccessor = httpContextAccessor;
     }
-    
+
+
+    public Task<Guid> GetCurrentUserId()
+    {
+        var claimsPrincipal = _httpContextAccessor.HttpContext?.User;
+        return Task.FromResult(Guid.Parse(_userManager.GetUserId(claimsPrincipal)));
+    }
+
     public async Task<CreateUser.Response> CreateUser(CreateUser.Request request)
     {
         var existedUser = await _userManager.FindByEmailAsync(request.Email);
