@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using finance_backend.DataAccess.Models;
@@ -11,9 +12,11 @@ using finance_backend.DataAccess.Models;
 namespace finance_backend.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20231113112312_User_Categories_realtions")]
+    partial class User_Categories_realtions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,6 +248,31 @@ namespace finance_backend.Migrations
                     b.ToTable("balances", (string)null);
                 });
 
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("title");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("categories", (string)null);
+                });
+
             modelBuilder.Entity("finance_backend.DataAccess.Models.Expense", b =>
                 {
                     b.Property<Guid>("Id")
@@ -303,37 +331,6 @@ namespace finance_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("incomes", (string)null);
-                });
-
-            modelBuilder.Entity("finance_backend.Domain.Category", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("RemovedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("title");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("finance_backend.Domain.User", b =>
@@ -423,7 +420,7 @@ namespace finance_backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("finance_backend.Domain.Category", b =>
+            modelBuilder.Entity("finance_backend.DataAccess.Models.Category", b =>
                 {
                     b.HasOne("finance_backend.Domain.User", "User")
                         .WithMany("Categories")
