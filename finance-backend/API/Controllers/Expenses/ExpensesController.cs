@@ -41,7 +41,7 @@ namespace Finance_Backend.Controllers
                 return NotFound();
             }
 
-            return expense;
+            return Ok(expense);
         }
 
         // PUT: api/Expenses/5

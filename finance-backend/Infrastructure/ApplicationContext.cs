@@ -1,8 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using finance_backend.Domain;
+using finance_backend.Infrastructure.Data_access.EntitiesConfig;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace finance_backend.DataAccess.Models;
 
-public class ApplicationContext : DbContext
+public class ApplicationContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
@@ -17,6 +21,7 @@ public class ApplicationContext : DbContext
     
     public DbSet<Income> incomes { get; set; }
     
+    public DbSet<User> users { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new IncomeConfiguration());

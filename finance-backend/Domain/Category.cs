@@ -1,10 +1,12 @@
 ﻿using finance_backend.Domain.Shared;
 
-namespace finance_backend.DataAccess.Models;
+namespace finance_backend.Domain;
 
-public class Category : BaseEntity<Guid>
+public class Category : MutableEntity<Guid>
 {
     public string Title { get; set; }
     
     public Guid UserId { get; set; }
+
+    public User User { get; set; }
 }
