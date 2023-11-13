@@ -1,4 +1,5 @@
 using finance_backend.Application.Identity.Interfaces;
+using finance_backend.Application.Repositories;
 using finance_backend.Application.Services.Category.Contracts;
 using finance_backend.Application.Services.Category.Interfaces;
 using finance_backend.Domain;
@@ -8,11 +9,14 @@ namespace finance_backend.Application.Services.Category.Implementations;
 public class CategoryService : ICategoryService
 {
     private IIdentityService _identityService;
+    private ICategoryRepository _categoryRepository;
 
     public CategoryService(
-        IIdentityService identityService)
+        IIdentityService identityService,
+        ICategoryRepository categoryRepository)
     {
         _identityService = identityService;
+        _categoryRepository = categoryRepository;
     }
     
     public async Task<CreateCategory.Response> Create(CreateCategory.Request request)
@@ -30,6 +34,8 @@ public class CategoryService : ICategoryService
             Title = request.Title,
             UserId = currentUserId,
         };
+
+        await _categoryRepository.Save(category);
 
         return new CreateCategory.Response
         {

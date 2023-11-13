@@ -2,8 +2,8 @@
 using finance_backend.Application.Services.User.Implementaitions;
 using finance_backend.Application.Services.User.Interfaces;
 using finance_backend.DataAccess.Models;
-using finance_backend.DataAccess.Models.Data_access;
-using finance_backend.Domain;
+using finance_backend.Infrastructure;
+using finance_backend.Infrastructure.Data_access;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

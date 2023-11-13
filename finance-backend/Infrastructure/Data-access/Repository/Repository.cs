@@ -1,8 +1,9 @@
 using finance_backend.Application.Repositories;
+using finance_backend.DataAccess.Models;
 using finance_backend.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 
-namespace finance_backend.DataAccess.Models.Data_access.Repository;
+namespace finance_backend.Infrastructure.Data_access.Repository;
 
 public class Repository<TEntity, TId> : IRepository<TEntity, TId>
     where TEntity : BaseEntity<TId>

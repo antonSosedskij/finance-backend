@@ -3,7 +3,7 @@ using finance_backend.Application.Services.Category.Interfaces;
 using finance_backend.Application.Services.User.Implementaitions;
 using finance_backend.Application.Services.User.Interfaces;
 
-namespace finance_backend.DataAccess.Models;
+namespace finance_backend.Infrastructure;
 
 public static class ApplicationModule
 {
