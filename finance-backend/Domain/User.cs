@@ -5,7 +5,7 @@ namespace finance_backend.Domain
 {
     public class User : MutableEntity<Guid>
     {
-        public Guid Id { get; set; }
+        
         public string Username { get; set; }
 
         public string Email { get; set; }
@@ -14,9 +14,6 @@ namespace finance_backend.Domain
         
         public string Lastname { get; set; }
         
-        // public ICollection<Category> Categories { get; set; }
-        //
-        // public ICollection<Balance> Balances { get; set; }
-
+        public ICollection<Category> Categories { get; set; }
     }
 }
