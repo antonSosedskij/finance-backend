@@ -2,7 +2,6 @@ using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
 using finance_backend.Application.Services.Category.Contracts;
 using finance_backend.Application.Services.Category.Interfaces;
-using finance_backend.Domain;
 
 namespace finance_backend.Application.Services.Category.Implementations;
 
@@ -18,7 +17,25 @@ public class CategoryService : ICategoryService
         _identityService = identityService;
         _categoryRepository = categoryRepository;
     }
-    
+
+    public async Task<GetCategory.Response> GetCategory(GetCategory.Request request)
+    {
+        var category = await _categoryRepository.FindById(request.Id);
+
+        return new GetCategory.Response
+        {
+            Id = category.Id,
+            Title = category.Title,
+            User = new GetCategory.Response.Owner
+            {
+                Id = category.User.Id,
+                Username = category.User.Username,
+                Email = category.User.Email,
+                Name = category.User.Name,
+                Lastname = category.User.Lastname
+            }
+        };
+    }
     public async Task<CreateCategory.Response> Create(CreateCategory.Request request)
     {
         var currentUserId = await _identityService.GetCurrentUserId();
