@@ -5,11 +5,11 @@ namespace finance_backend.API.Controllers.Categories;
 
 [ApiController]
 [Route("api/[controller]")]
-public partial class CategoryController : ControllerBase
+public partial class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
 
-    public CategoryController(
+    public CategoriesController(
         ICategoryService categoryService)
     {
         _categoryService = categoryService;

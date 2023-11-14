@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace finance_backend.API.Controllers.Categories;
 
-public partial class CategoryController
+public partial class CategoriesController
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetCategory([FromRoute] Guid id)
