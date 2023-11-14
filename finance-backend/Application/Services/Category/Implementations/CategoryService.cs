@@ -36,6 +36,26 @@ public class CategoryService : ICategoryService
             }
         };
     }
+
+    public async Task<GetCategories.Response> GetCategories()
+    {
+        var categoriesList = await _categoryRepository.FindAll();
+
+        if (categoriesList == null)
+        {
+            throw new Exception("Категории не найдены");
+        }
+
+        return new GetCategories.Response
+        {
+            Categories = categoriesList.Select(a => new GetCategories.Response.Item
+            {
+                Id = a.Id,
+                Title = a.Title
+            })
+        };
+    }
+
     public async Task<CreateCategory.Response> Create(CreateCategory.Request request)
     {
         var currentUserId = await _identityService.GetCurrentUserId();

@@ -7,4 +7,6 @@ public interface ICategoryService
     public Task<CreateCategory.Response> Create(CreateCategory.Request request);
 
     public Task<GetCategory.Response> GetCategory(GetCategory.Request request);
+
+    public Task<GetCategories.Response> GetCategories();
 }
