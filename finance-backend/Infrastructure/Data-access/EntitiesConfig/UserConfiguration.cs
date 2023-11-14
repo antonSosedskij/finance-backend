@@ -20,11 +20,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(e => e.Email)
             .IsRequired()
             .HasColumnName("email");
-        builder
-            .HasMany(u => u.Categories)
-            .WithOne(c => c.User)
-            .HasForeignKey(c => c.UserId)
-            .IsRequired();
 
     }
 }
