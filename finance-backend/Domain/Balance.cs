@@ -9,7 +9,7 @@ public class Balance : MutableEntity<Guid>
     public decimal Percent { get; set; }
     
     //категория, к которой принадлежит баланс
-    public Category Category { get; set; }
+    public virtual Category Category { get; set; }
     
     public Guid CategoryId { get; set; }
 }

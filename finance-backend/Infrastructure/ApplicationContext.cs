@@ -23,6 +23,11 @@ public class ApplicationContext : IdentityDbContext<IdentityUser<Guid>, Identity
     public DbSet<Income> incomes { get; set; }
     
     public DbSet<User> users { get; set; }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies();
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new IncomeConfiguration());
