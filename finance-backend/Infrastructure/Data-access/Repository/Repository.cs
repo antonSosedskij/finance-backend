@@ -14,6 +14,12 @@ public class Repository<TEntity, TId> : IRepository<TEntity, TId>
     {
         _context = context;
     }
+
+    public async Task<IEnumerable<TEntity>> FindAll()
+    {
+        var entry = await _context.Set<TEntity>().ToListAsync();
+        return entry;
+    }
     
     public async Task Save(TEntity entity)
     {
