@@ -18,6 +18,11 @@ public class BalanceConfiguration : IEntityTypeConfiguration<Balance>
             .HasColumnName("percent");
         builder.Property(e => e.CategoryId)
             .IsRequired();
+        builder
+            .HasOne(u => u.User)
+            .WithMany()
+            .HasForeignKey(b => b.UserId)
+            .HasPrincipalKey(u => u.Id);
 
     }
 }
