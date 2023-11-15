@@ -17,7 +17,8 @@ public static class DataAccessModule
         services
             .AddScoped<IRepository<Domain.User, Guid>, Repository<Domain.User, Guid>>()
             .AddScoped<ICategoryRepository, CategoryRepository>()
-            .AddScoped<IBalanceRepository, BalanceRepository>();
+            .AddScoped<IBalanceRepository, BalanceRepository>()
+            .AddScoped<IIncomesRepository, IncomeRepository>();
         
         return services;
     }
