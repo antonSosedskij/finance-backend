@@ -1,18 +1,22 @@
-﻿using finance_backend.DataAccess.Models;
+﻿using finance_backend.Application.Services.Income.Interfaces;
+using finance_backend.DataAccess.Models;
+using finance_backend.Domain;
 using finance_backend.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finance_backend.Controllers;
 
 [ApiController]
-[Route("api/Incomes")]
-public class IncomeController : Controller
+[Route("api/[controller]")]
+public partial class IncomesController : Controller
 {
-    public ApplicationContext db;
+    private readonly ApplicationContext db;
+    private readonly IIncomeService _incomeService;
     
-    public IncomeController(ApplicationContext context)
+    public IncomesController(ApplicationContext context, IIncomeService incomeService)
     {
         db = context;
+        _incomeService = incomeService;
     }
     
     [HttpGet]
@@ -25,15 +29,6 @@ public class IncomeController : Controller
     public Income Get(Guid id)
     {
         Income income = db.incomes.Find(id);
-        return income;
-    }
-    
-    [HttpPost]
-    public Income Post(Income income)
-    {
-        
-        db.incomes.Add(income);
-        db.SaveChanges();
         return income;
     }
     
