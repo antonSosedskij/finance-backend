@@ -1,11 +1,15 @@
 ﻿using finance_backend.Domain.Shared;
 
-namespace finance_backend.DataAccess.Models;
+namespace finance_backend.Domain;
 
 public class Income : MutableEntity<Guid>
 {
-    public string Title { get; set; } = "";
+    public string Title { get; set; }
     
-    public float Amount { get; set; }
+    public decimal Amount { get; set; }
+    
+    public virtual User User { get; set; }
+    
+    public Guid UserId { get; set; }
     
 }
