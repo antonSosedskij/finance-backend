@@ -13,7 +13,7 @@ public class IncomeRepository : Repository<Income, Guid>, IIncomesRepository
 
     public async Task<IEnumerable<Income>> GetIncomesByUserId(Guid userId)
     {
-        var incomes = await _context.incomes.Where(i => i.UserId == userId).ToListAsync();
+        var incomes = await _context.incomes.Where(i => i.Owner.Id == userId).ToListAsync();
 
         return incomes;
     }

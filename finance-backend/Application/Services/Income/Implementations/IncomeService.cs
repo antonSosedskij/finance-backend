@@ -27,7 +27,7 @@ public class IncomeService : IIncomeService
             Id = Guid.NewGuid(),
             Title = request.Title,
             Amount = request.Amount,
-            UserId = currentUserId
+            OwnerId = currentUserId
         };
 
         await _incomesRepository.Save(income);
@@ -37,7 +37,7 @@ public class IncomeService : IIncomeService
             Id = income.Id,
             Title = income.Title,
             Amount = income.Amount,
-            UserId = income.UserId
+            UserId = income.OwnerId
         };
     }
 
@@ -51,10 +51,26 @@ public class IncomeService : IIncomeService
         {
             Incomes = incomes.Select(i => new GetByUserId.Response.Item
             {
-                UserId = i.UserId,
+                UserId = i.Owner.Id,
                 Title = i.Title,
                 Amount = i.Amount
             })
         };
-    } //переписать под текущего юзера
+    }
+
+    public async Task<GetUserIncomesSum.Response> GetUserIncomesSum()
+    {
+        var userId = await _identityService.GetCurrentUserId();
+        
+        var incomes = await _incomesRepository.GetIncomesByUserId(userId);
+
+        return new GetUserIncomesSum.Response
+        {
+            UserId = userId,
+            IncomesSum = incomes.Sum(i => i.Amount)
+        };
+    }
+    //переписать под текущего юзера
+    
+    
 }
