@@ -7,7 +7,7 @@ namespace finance_backend.API.Controllers.Balances;
 public partial class BalancesController
 {
     [HttpPost]
-    public async Task<IActionResult> CreateBalance(CreateBalanceRequest request)
+    public async Task<IActionResult> CreateBalance([FromBody]CreateBalanceRequest request)
     {
         var balance = await _balanceService.CreateBalance( new CreateBalance.Request
         {
