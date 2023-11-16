@@ -1,3 +1,4 @@
+using finance_backend.API.Dto.Expense;
 using finance_backend.Application.Services.Expense.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,7 +7,7 @@ namespace Finance_Backend.Controllers;
 public partial class ExpensesController
 {
     [HttpPost]
-    public async Task<IActionResult> CreateExpense(CreateExpense.Request request)
+    public async Task<IActionResult> CreateExpense(CreateExpenseRequest request)
     {
         var expense = await _expenseService.CreateExpense(new CreateExpense.Request
         {
