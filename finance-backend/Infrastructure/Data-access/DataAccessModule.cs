@@ -1,4 +1,6 @@
 using finance_backend.Application.Repositories;
+using finance_backend.Application.Services.Expense.Implementations;
+using finance_backend.Application.Services.Expense.Interfaces;
 using finance_backend.DataAccess.Models;
 using finance_backend.Infrastructure.Data_access.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +20,8 @@ public static class DataAccessModule
             .AddScoped<IRepository<Domain.User, Guid>, Repository<Domain.User, Guid>>()
             .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<IBalanceRepository, BalanceRepository>()
-            .AddScoped<IIncomesRepository, IncomeRepository>();
+            .AddScoped<IIncomesRepository, IncomeRepository>()
+            .AddScoped<IExpenseRepository, ExpenseRepository>();
         
         return services;
     }
