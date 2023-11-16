@@ -1,4 +1,6 @@
-﻿using finance_backend.DataAccess.Models;
+﻿using finance_backend.Application.Services.Expense.Interfaces;
+using finance_backend.DataAccess.Models;
+using finance_backend.Domain;
 using finance_backend.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,13 +9,15 @@ namespace Finance_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ExpensesController : ControllerBase
+    public partial class ExpensesController : ControllerBase
     {
         private readonly ApplicationContext _context;
+        private readonly IExpenseService _expenseService;
 
-        public ExpensesController(ApplicationContext context)
+        public ExpensesController(ApplicationContext context, IExpenseService expenseService)
         {
             _context = context;
+            _expenseService = expenseService;
         }
 
         // GET: api/Expenses
@@ -74,20 +78,7 @@ namespace Finance_Backend.Controllers
 
             return NoContent();
         }
-
-        // POST: api/Expenses
-        [HttpPost]
-        public async Task<ActionResult<Expense>> PostExpense(Expense expense)
-        {
-          if (_context.expenses == null)
-          {
-              return Problem("Контекст расходов null.");
-          }
-            _context.expenses.Add(expense);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetExpense", new { id = expense.Id }, expense);
-        }
+        
 
         // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
