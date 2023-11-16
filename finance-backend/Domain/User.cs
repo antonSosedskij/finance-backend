@@ -14,7 +14,6 @@ namespace finance_backend.Domain
         
         public string Lastname { get; set; }
         
-        public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Balance> Balances { get; set; }
     }
 }
