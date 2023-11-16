@@ -16,7 +16,6 @@ public class CreateBalance
         public Guid Id { get; set; }
         
         public string Title { get; set; }
-        
         public decimal Percent { get; set; }
         
         public Guid CategoryId { get; set; }
