@@ -11,6 +11,20 @@ namespace finance_backend.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_balances_categories_CategoryId",
+                table: "balances");
+
+            migrationBuilder.RenameColumn(
+                name: "CategoryId",
+                table: "balances",
+                newName: "category_id");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_balances_CategoryId",
+                table: "balances",
+                newName: "IX_balances_category_id");
+
             migrationBuilder.AlterColumn<decimal>(
                 name: "amount",
                 table: "incomes",
@@ -20,7 +34,7 @@ namespace finance_backend.Migrations
                 oldType: "real");
 
             migrationBuilder.AddColumn<Guid>(
-                name: "UserId",
+                name: "OwnerId",
                 table: "incomes",
                 type: "uuid",
                 nullable: false,
@@ -30,13 +44,12 @@ namespace finance_backend.Migrations
                 name: "UserId",
                 table: "balances",
                 type: "uuid",
-                nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
+                nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_incomes_UserId",
+                name: "IX_incomes_OwnerId",
                 table: "incomes",
-                column: "UserId");
+                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_balances_UserId",
@@ -44,17 +57,24 @@ namespace finance_backend.Migrations
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
+                name: "FK_balances_categories_category_id",
+                table: "balances",
+                column: "category_id",
+                principalTable: "categories",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_balances_users_UserId",
                 table: "balances",
                 column: "UserId",
                 principalTable: "users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_incomes_users_UserId",
+                name: "FK_incomes_users_OwnerId",
                 table: "incomes",
-                column: "UserId",
+                column: "OwnerId",
                 principalTable: "users",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -64,15 +84,19 @@ namespace finance_backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_balances_categories_category_id",
+                table: "balances");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_balances_users_UserId",
                 table: "balances");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_incomes_users_UserId",
+                name: "FK_incomes_users_OwnerId",
                 table: "incomes");
 
             migrationBuilder.DropIndex(
-                name: "IX_incomes_UserId",
+                name: "IX_incomes_OwnerId",
                 table: "incomes");
 
             migrationBuilder.DropIndex(
@@ -80,12 +104,22 @@ namespace finance_backend.Migrations
                 table: "balances");
 
             migrationBuilder.DropColumn(
-                name: "UserId",
+                name: "OwnerId",
                 table: "incomes");
 
             migrationBuilder.DropColumn(
                 name: "UserId",
                 table: "balances");
+
+            migrationBuilder.RenameColumn(
+                name: "category_id",
+                table: "balances",
+                newName: "CategoryId");
+
+            migrationBuilder.RenameIndex(
+                name: "IX_balances_category_id",
+                table: "balances",
+                newName: "IX_balances_CategoryId");
 
             migrationBuilder.AlterColumn<float>(
                 name: "amount",
@@ -94,6 +128,14 @@ namespace finance_backend.Migrations
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "numeric");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_balances_categories_CategoryId",
+                table: "balances",
+                column: "CategoryId",
+                principalTable: "categories",
+                principalColumn: "id",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }
