@@ -8,8 +8,8 @@ public class Income : MutableEntity<Guid>
     
     public decimal Amount { get; set; }
     
-    public virtual User User { get; set; }
+    public Guid OwnerId { get; set; }
+    public virtual User Owner { get; set; }
     
-    public Guid UserId { get; set; }
     
 }
