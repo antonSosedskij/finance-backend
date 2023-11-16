@@ -20,9 +20,8 @@ public class IncomeConfiguration : IEntityTypeConfiguration<Income>
         builder.Property(e => e.Amount)
             .HasColumnName("amount");
         builder
-            .HasOne(c => c.User)
+            .HasOne(c => c.Owner)
             .WithMany()
-            .HasForeignKey(c => c.UserId)
-            .HasPrincipalKey(u => u.Id);
+            .HasForeignKey(c => c.OwnerId);
     }
 }

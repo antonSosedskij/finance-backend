@@ -17,12 +17,11 @@ public class BalanceConfiguration : IEntityTypeConfiguration<Balance>
             .IsRequired()
             .HasColumnName("percent");
         builder.Property(e => e.CategoryId)
+            .HasColumnName("category_id")
             .IsRequired();
         builder
-            .HasOne(u => u.User)
-            .WithMany()
-            .HasForeignKey(b => b.UserId)
-            .HasPrincipalKey(u => u.Id);
-
+            .HasOne(b => b.Category)
+            .WithMany(c => c.Balances)
+            .HasForeignKey(b => b.CategoryId);
     }
 }

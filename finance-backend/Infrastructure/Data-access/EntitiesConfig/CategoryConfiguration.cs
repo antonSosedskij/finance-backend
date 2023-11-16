@@ -19,14 +19,8 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .IsRequired()
             .HasColumnName("title");
         builder
-            .HasMany(c => c.Balances)
-            .WithOne(b => b.Category)
-            .HasForeignKey(b => b.CategoryId)
-            .IsRequired();
-        builder
             .HasOne(c => c.User)
             .WithMany()
-            .HasForeignKey(c => c.UserId)
-            .HasPrincipalKey(u => u.Id);
+            .HasForeignKey(c => c.UserId);
     }
 }

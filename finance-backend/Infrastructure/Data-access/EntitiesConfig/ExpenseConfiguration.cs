@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using finance_backend.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace finance_backend.DataAccess.Models;
@@ -18,5 +19,9 @@ public class ExpenseConfiguration : IEntityTypeConfiguration<Expense>
         builder.Property(e => e.BalanceId)
             .IsRequired()
             .HasColumnName("balanceId");
+        builder
+            .HasOne(e => e.Balance)
+            .WithMany(b => b.Expenses)
+            .HasForeignKey(e => e.BalanceId);
     }
 }
