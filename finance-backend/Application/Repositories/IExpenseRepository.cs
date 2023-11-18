@@ -5,5 +5,5 @@ namespace finance_backend.Application.Repositories;
 
 public interface IExpenseRepository : IRepository<Expense, Guid>
 {
-    
+    public Task<IEnumerable<Expense>> GetExpensesByUserId(Guid userId);
 }

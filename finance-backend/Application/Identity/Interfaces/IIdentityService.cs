@@ -7,6 +7,6 @@ public interface IIdentityService
     Task<Guid> GetCurrentUserId();
     Task<CreateUser.Response> CreateUser(CreateUser.Request request);
 
-    Task<CreateToken.Response> CreateToken(CreateToken.Request request);
+    Task<CreateToken.SuccessAuthResponse> CreateToken(CreateToken.Request request);
 
 }

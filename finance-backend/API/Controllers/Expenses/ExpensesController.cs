@@ -1,5 +1,4 @@
 ﻿using finance_backend.Application.Services.Expense.Interfaces;
-using finance_backend.DataAccess.Models;
 using finance_backend.Domain;
 using finance_backend.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -20,18 +19,8 @@ namespace Finance_Backend.Controllers
             _expenseService = expenseService;
         }
 
-        // GET: api/Expenses
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Expense>>> GetExpense()
-        {
-          if (_context.expenses == null)
-          {
-              return NotFound();
-          }
-            return await _context.expenses.ToListAsync();
-        }
-
-        // PUT: api/Expenses/5
+        // TODO Переделать
+        //PUT: api/Expenses/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpense(Guid id, Expense expense)
         {
@@ -60,8 +49,8 @@ namespace Finance_Backend.Controllers
 
             return NoContent();
         }
-        
 
+        // TODO Переделать
         // DELETE: api/Expenses/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExpense(Guid id)
@@ -82,6 +71,7 @@ namespace Finance_Backend.Controllers
             return NoContent();
         }
 
+        // TODO Переделать
         private bool ExpenseExists(Guid id)
         {
             return (_context.expenses?.Any(e => e.Id == id)).GetValueOrDefault();

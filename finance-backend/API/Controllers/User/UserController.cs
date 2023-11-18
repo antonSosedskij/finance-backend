@@ -24,7 +24,7 @@ public partial class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<IActionResult> Register([FromBody] UserRegisterRequest registerRequest)
     {
-        var registration = await _userService.Register( new Register.Request
+        var registration = await _userService.Register(new Register.Request
         {
             Username = registerRequest.Username,
             Email = registerRequest.Email,

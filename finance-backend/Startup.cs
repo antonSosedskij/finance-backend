@@ -24,11 +24,34 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-
+        services.AddCors();
         services.AddApplicationModule();
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Finance API", Version = "v1" });
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "Введите токен JWT",
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }
+            });
         });
 
         services.AddDataAccessModule(Configuration.GetConnectionString("DefaultConnection"));
@@ -54,9 +77,15 @@ public class Startup
             app.UseExceptionHandler("/Error");
             app.UseHsts();
         }
-        
 
         app.UseHttpsRedirection();
+        app.UseCors(builder =>
+            {
+                builder.WithOrigins("https://dzenfinance.vercel.app", "http://localhost:4200")
+                .AllowAnyHeader()
+                .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+                .AllowCredentials();
+            });
         app.UseRouting();
 
         app.UseAuthentication();
@@ -73,6 +102,9 @@ public class Startup
         app.UseSwaggerUI(c =>
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Finance API V1");
+
+            c.OAuthClientId("swagger");
+            c.OAuthAppName("Swagger UI");
         });
 
     }

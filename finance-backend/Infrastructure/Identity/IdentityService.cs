@@ -74,14 +74,14 @@ public class IdentityService : IIdentityService
         };
     }
 
-    public async Task<CreateToken.Response> CreateToken(CreateToken.Request request)
+    public async Task<CreateToken.SuccessAuthResponse> CreateToken(CreateToken.Request request)
     {
         var userByEmail = await _userManager.FindByEmailAsync(request.Email);
         IdentityUser<Guid> identityUser;
 
         if (userByEmail == null)
         {
-            throw new Exception("User not found");
+            throw new Exception("Пользователь не найден");
         }
         else
         {
@@ -112,10 +112,9 @@ public class IdentityService : IIdentityService
             )
         );
 
-        // var domainUserId = await _userManager.GetUserIdAsync(identityUser);
         var domainUser = await _userRepository.FindById(identityUser.Id);
 
-        return new CreateToken.Response
+        return new CreateToken.SuccessAuthResponse
         {
             Token =  new JwtSecurityTokenHandler().WriteToken(token),
             Username = domainUser.Username,

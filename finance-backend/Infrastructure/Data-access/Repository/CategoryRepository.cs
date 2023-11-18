@@ -23,7 +23,7 @@ public class CategoryRepository : Repository<Category, Guid>, ICategoryRepositor
             .Where(c => IsTitleInDefaultCategories(c.Title))
             .ToList();
 
-        return filteredCategories;;
+        return filteredCategories;
     }
     
     private bool IsTitleInDefaultCategories(string title)

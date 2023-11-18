@@ -6,7 +6,8 @@ public static class CreateExpense
     {
         public string Title { get; set; }
         
-        public decimal Amount { get; set; }
+        public decimal Amount { get; set; } 
+        
         public Guid BalanceId { get; set; }
     }
 
@@ -17,6 +18,9 @@ public static class CreateExpense
         public string Title { get; set; }
         
         public decimal Amount { get; set; }
+
+        public Guid UserId { get; set; }
+
         public Guid BalanceId { get; set; }
     }
 }

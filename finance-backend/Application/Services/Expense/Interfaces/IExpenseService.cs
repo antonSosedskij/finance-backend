@@ -7,4 +7,6 @@ public interface IExpenseService
     public Task<CreateExpense.Response> CreateExpense(CreateExpense.Request request);
 
     public Task<GetExpense.Response> GetExpense(GetExpense.Request request);
+
+    public Task<GetAllForUser.Response> GetAllForCurrentUser();
 }

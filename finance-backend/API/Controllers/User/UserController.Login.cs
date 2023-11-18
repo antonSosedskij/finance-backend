@@ -7,7 +7,7 @@ namespace finance_backend.API.Controllers.User;
 public partial class UserController : ControllerBase
 {   
     [HttpPost("login")]
-    public async Task<IActionResult> Login(UserLoginRequest request)
+    public async Task<ActionResult<CreateToken.SuccessAuthResponse>> Login(UserLoginRequest request)
     {
         var token = await _identityService.CreateToken(new CreateToken.Request
         {
