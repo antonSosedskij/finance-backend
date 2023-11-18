@@ -31,24 +31,6 @@ namespace Finance_Backend.Controllers
             return await _context.expenses.ToListAsync();
         }
 
-        // GET: api/Expenses/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Expense>> GetExpense(Guid id)
-        {
-          if (_context.expenses == null)
-          {
-              return NotFound();
-          }
-            var expense = await _context.expenses.FindAsync(id);
-
-            if (expense == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(expense);
-        }
-
         // PUT: api/Expenses/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExpense(Guid id, Expense expense)

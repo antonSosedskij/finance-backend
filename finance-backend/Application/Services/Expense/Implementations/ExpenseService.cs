@@ -34,4 +34,23 @@ public class ExpenseService : IExpenseService
             BalanceId = expense.BalanceId
         };
     }
+
+    public async Task<GetExpense.Response> GetExpense(GetExpense.Request request)
+    {
+        var expense = await _expenseRepository.FindById(request.Id);
+
+        return new GetExpense.Response
+        {
+            Id = expense.Id,
+            Title = expense.Title,
+            Amount = expense.Amount,
+            Balance = new GetExpense.Response.ExpensesBalance
+            {
+                Id = expense.Balance.Id,
+                Title = expense.Balance.Title,
+                Percent = expense.Balance.Percent,
+                CategoryId = expense.Balance.CategoryId
+            }
+        };
+    }
 }

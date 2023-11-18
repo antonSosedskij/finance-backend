@@ -6,4 +6,6 @@ public interface IBalanceService
 {
     Task<CreateBalance.Response> CreateBalance(CreateBalance.Request request);
     Task<GetBalance.Response> GetBalance(GetBalance.Request request);
+    
+    
 }

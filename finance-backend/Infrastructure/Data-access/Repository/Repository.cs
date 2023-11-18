@@ -20,7 +20,14 @@ public class Repository<TEntity, TId> : IRepository<TEntity, TId>
         var entry = await _context.Set<TEntity>().ToListAsync();
         return entry;
     }
-    
+
+    public async Task Delete(TEntity entity)
+    {
+        _context.Set<TEntity>().Remove(entity);
+
+        await _context.SaveChangesAsync();
+    }
+
     public async Task Save(TEntity entity)
     {
         var entry = _context.Entry(entity);
@@ -29,6 +36,13 @@ public class Repository<TEntity, TId> : IRepository<TEntity, TId>
         {
             await _context.AddAsync(entity);
         }
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task SaveAll(IEnumerable<TEntity> entities)
+    {
+        await _context.AddRangeAsync(entities);
+        
         await _context.SaveChangesAsync();
     }
     
