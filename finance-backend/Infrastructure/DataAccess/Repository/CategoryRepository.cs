@@ -28,7 +28,7 @@ public class CategoryRepository : Repository<Category, Guid>, ICategoryRepositor
     
     private bool IsTitleInDefaultCategories(string title)
     {
-        using (var reader = new StreamReader("Infrastructure/Data-access/Repository/DefaultCategories.json"))
+        using (var reader = new StreamReader("Infrastructure/DataAccess/Repository/DefaultCategories.json"))
         {
             var json = reader.ReadToEnd();
             var defaultCategories = JsonConvert.DeserializeObject<List<Category>>(json);
