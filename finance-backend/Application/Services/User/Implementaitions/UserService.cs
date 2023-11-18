@@ -2,7 +2,6 @@ using finance_backend.Application.Identity.Contracts;
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
 using finance_backend.Application.Services.Category.Interfaces;
-using finance_backend.Application.Services.User.Contracts;
 using finance_backend.Application.Services.User.Interfaces;
 
 namespace finance_backend.Application.Services.User.Implementaitions;
@@ -23,14 +22,16 @@ public class UserService : IUserService
         _identity = identity;
         _categoryService = categoryService;
     }
-    
-    public async Task<Register.Response> Register(Register.Request request)
+
+    public async Task<SignUpResponse> SignUp(SignUpRequest request)
     {
-        var response = await _identity.CreateUser(new CreateUser.Request
+        var response = await _identity.SignUp(new SignUpRequest
         {
             Username = request.Username,
             Email = request.Email,
             Password = request.Password,
+            Name = request.Name,
+            Lastname = request.Lastname,
         });
 
         if (response.IsSuccess)
@@ -44,17 +45,48 @@ public class UserService : IUserService
                 Email = request.Email,
                 CreatedDate = DateTime.UtcNow,
             };
-            
+
             await _repository.Save(domainUser);
-            
+
             await _categoryService.CreateDefaultCategories(response.Id);
 
-            return new Register.Response
+            return new SignUpResponse
             {
-                Id = response.Id
+                IsSuccess = true,
+                Id = response.Id,
             };
         }
 
-        throw new Exception("wow, ne rabotaet!");
+        return new SignUpResponse
+        {
+            IsSuccess = false,
+            Errors = response.Errors.ToArray(),
+        };
+    }
+
+    public async Task<SignInResponse> SignIn(SignInRequest request)
+    {
+        var response = await _identity.SignIn(new SignInRequest
+        {
+            Email = request.Email,
+            Password = request.Password,
+        });
+
+        if (response.IsSuccess)
+        {
+            return new SignInResponse
+            {
+                IsSuccess = true,
+                Token = response.Token,
+                Id = response.Id,
+                Username = response.Username,
+            };
+        }
+
+        return new SignInResponse
+        {
+            IsSuccess = false,
+            Errors = response.Errors.ToArray(),
+        };
     }
 }

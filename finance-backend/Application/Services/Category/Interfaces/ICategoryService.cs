@@ -1,4 +1,3 @@
-using finance_backend.Application.Services.Balance.Contracts;
 using finance_backend.Application.Services.Category.Contracts;
 
 namespace finance_backend.Application.Services.Category.Interfaces;

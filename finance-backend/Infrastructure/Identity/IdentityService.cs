@@ -18,8 +18,8 @@ public class IdentityService : IIdentityService
     private readonly IConfiguration _configuration;
     private readonly IRepository<Domain.User, Guid> _userRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    
-    public IdentityService( 
+
+    public IdentityService(
         UserManager<IdentityUser<Guid>> userManager,
         SignInManager<IdentityUser<Guid>> signInManager,
         IConfiguration configuration,
@@ -40,13 +40,17 @@ public class IdentityService : IIdentityService
         return Task.FromResult(Guid.Parse(_userManager.GetUserId(claimsPrincipal)));
     }
 
-    public async Task<CreateUser.Response> CreateUser(CreateUser.Request request)
+    public async Task<SignUpResponse> SignUp(SignUpRequest request)
     {
         var existedUser = await _userManager.FindByEmailAsync(request.Email);
 
         if (existedUser != null)
         {
-            
+            return new SignUpResponse
+            {
+                IsSuccess = false,
+                Errors = new[] { "Пользователь с таким email уже есть в системе." }
+            };
         }
 
         var newUser = new IdentityUser<Guid>
@@ -54,34 +58,39 @@ public class IdentityService : IIdentityService
             UserName = request.Username,
             Email = request.Email
         };
-        
-        
+
         var identityResult = await _userManager.CreateAsync(newUser, request.Password);
 
         if (identityResult.Succeeded)
         {
-            return new CreateUser.Response
+            return new SignUpResponse
             {
                 IsSuccess = true,
                 Id = newUser.Id
             };
         }
 
-        return new CreateUser.Response
+        return new SignUpResponse
         {
             IsSuccess = false,
             Errors = identityResult.Errors.Select(x => x.Description).ToArray(),
         };
+
     }
 
-    public async Task<CreateToken.SuccessAuthResponse> CreateToken(CreateToken.Request request)
+
+    public async Task<SignInResponse> SignIn(SignInRequest request)
     {
         var userByEmail = await _userManager.FindByEmailAsync(request.Email);
         IdentityUser<Guid> identityUser;
 
         if (userByEmail == null)
         {
-            throw new Exception("Пользователь не найден");
+            return new SignInResponse
+            {
+                IsSuccess = false,
+                Errors = new[] { "Пользователь с таким email не найден в системе." }
+            };
         }
         else
         {
@@ -92,7 +101,11 @@ public class IdentityService : IIdentityService
 
         if (!signInResult.Succeeded)
         {
-            throw new Exception("Неправильный логин или пароль");
+            return new SignInResponse
+            {
+                IsSuccess = false,
+                Errors = new[] { "Вы ввели не правильный email или пароль." }
+            };
         }
 
         var claims = new List<Claim>
@@ -114,11 +127,13 @@ public class IdentityService : IIdentityService
 
         var domainUser = await _userRepository.FindById(identityUser.Id);
 
-        return new CreateToken.SuccessAuthResponse
+        return new SignInResponse
         {
-            Token =  new JwtSecurityTokenHandler().WriteToken(token),
+            IsSuccess = true,
+            Token = new JwtSecurityTokenHandler().WriteToken(token),
             Username = domainUser.Username,
-            Id = domainUser.Id
+            Id = domainUser.Id,
+            Errors = null
         };
     }
 }

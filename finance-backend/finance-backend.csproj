@@ -28,4 +28,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Application\Services\User\Contracts\" />
+    </ItemGroup>
+
 </Project>
