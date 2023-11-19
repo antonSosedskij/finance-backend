@@ -1,15 +1,9 @@
-﻿using finance_backend.Application.Repositories;
-using finance_backend.Application.Services.User.Implementaitions;
-using finance_backend.Application.Services.User.Interfaces;
-using finance_backend.DataAccess.Models;
+﻿using finance_backend.DataAccess.Models;
 using finance_backend.Infrastructure;
 using finance_backend.Infrastructure.Data_access;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace finance_backend;
 
@@ -29,6 +23,11 @@ public class Startup
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Finance API", Version = "v1" });
+
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+            c.IncludeXmlComments(xmlPath);
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
