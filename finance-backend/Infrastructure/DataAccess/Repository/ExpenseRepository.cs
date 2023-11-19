@@ -24,12 +24,7 @@ public class ExpenseRepository : Repository<Expense, Guid>, IExpenseRepository
     public async Task<IEnumerable<Expense>> GetPagedExpensesByUserId(Guid userId, ExpensesRequest request)
     {
         var userExpenses = _context.expenses.Where(e => e.User.Id == userId);
-
-        var ex = userExpenses.ToList();
-
         var pagedExpenses = userExpenses.Skip((request.Page - 1) * request.Size).Take(request.Size);
-
-        var p = pagedExpenses.ToList();
 
         return await pagedExpenses.ToListAsync();
     }
