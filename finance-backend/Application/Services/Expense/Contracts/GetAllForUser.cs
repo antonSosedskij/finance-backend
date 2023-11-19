@@ -1,21 +1,17 @@
+using finance_backend.API.Dto;
+using static finance_backend.Application.Services.Expense.Contracts.PagedExpenses;
+
 namespace finance_backend.Application.Services.Expense.Contracts;
 
-public static class GetAllForUser
+public class PagedExpenses: IItemsPagedDto<ExpenseResponse>
 {
-    public sealed class Request
+    public IEnumerable<ExpenseResponse> Items { get; set; }
+    public int TotalCount { get; set; }
+
+    public sealed class ExpenseResponse
     {
-
-    }
-
-    public sealed class Response
-    {
-        public sealed class ExpenseResponse
-        {
-            public Guid Id { get; set; }
-            public string Title { get; set; }
-            public decimal Amount { get; set; }
-        }
-
-        public IEnumerable<ExpenseResponse> Expenses { get; set; }
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public decimal Amount { get; set; }
     }
 }

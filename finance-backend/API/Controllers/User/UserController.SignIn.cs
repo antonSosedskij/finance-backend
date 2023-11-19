@@ -7,12 +7,12 @@ namespace finance_backend.API.Controllers.User;
 public partial class UserController : ControllerBase
 {   
     [HttpPost("signin")]
-    public async Task<ActionResult<SignInResponse>> SignIn(UserLoginRequest request)
+    public async Task<ActionResult<SignInResponse>> SignIn(SignInRequest request)
     {
         var token = await _identityService.SignIn(new SignInRequest
         {
-            Email = request.email,
-            Password = request.password
+            Email = request.Email,
+            Password = request.Password,
         });
 
         return Ok(token);

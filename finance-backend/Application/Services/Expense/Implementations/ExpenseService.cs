@@ -1,8 +1,8 @@
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
-using finance_backend.Application.Services.Category.Contracts;
 using finance_backend.Application.Services.Expense.Contracts;
 using finance_backend.Application.Services.Expense.Interfaces;
+using static finance_backend.Application.Services.Expense.Contracts.PagedExpenses;
 
 namespace finance_backend.Application.Services.Expense.Implementations;
 
@@ -44,7 +44,7 @@ public class ExpenseService : IExpenseService
         };
     }
 
-    public async Task<GetExpense.Response> GetExpense(GetExpense.Request request)
+    public async Task<GetExpense.Response> GetById(GetExpense.Request request)
     {
         var expense = await _expenseRepository.FindById(request.Id);
 
@@ -69,20 +69,24 @@ public class ExpenseService : IExpenseService
         };
     }
 
-    public async Task<GetAllForUser.Response> GetAllForCurrentUser()
+    public async Task<PagedExpenses> GetPagedExpensesForCurrentUser(ExpensesRequest request)
     {
         var userId = await _identityService.GetCurrentUserId();
 
-        var expenses = await _expenseRepository.GetExpensesByUserId(userId);
+        var expenses = await _expenseRepository.GetPagedExpensesByUserId(userId, request);
 
-        return new GetAllForUser.Response
+        var expenseResponses = expenses.Select(e => new PagedExpenses.ExpenseResponse
         {
-            Expenses = expenses.Select(e => new GetAllForUser.Response.ExpenseResponse
-            {
-                Id = e.Id,
-                Title = e.Title,
-                Amount = e.Amount,
-            })
+            Id = e.Id,
+            Title = e.Title,
+            Amount = e.Amount,
+        });
+
+        return new PagedExpenses
+        {
+            Items = expenseResponses,
+            TotalCount = expenses.Count(),
         };
     }
+
 }
