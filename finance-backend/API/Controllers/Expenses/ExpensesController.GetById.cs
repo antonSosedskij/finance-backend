@@ -6,9 +6,9 @@ namespace Finance_Backend.Controllers;
 public partial class ExpensesController
 {
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetExpense(Guid id)
+    public async Task<IActionResult> GetById(Guid id)
     {
-        var expense = await _expenseService.GetExpense(new GetExpense.Request
+        var expense = await _expenseService.GetById(new GetExpense.Request
         {
             Id = id
         });

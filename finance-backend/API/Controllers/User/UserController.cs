@@ -1,6 +1,5 @@
 using finance_backend.API.Dto;
 using finance_backend.Application.Identity.Interfaces;
-using finance_backend.Application.Services.User.Contracts;
 using finance_backend.Application.Services.User.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,21 +17,5 @@ public partial class UserController : ControllerBase
     {
         _userService = userService;
         _identityService = identityService;
-    }
-
-    [HttpPost("register")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> Register([FromBody] UserRegisterRequest registerRequest)
-    {
-        var registration = await _userService.Register( new Register.Request
-        {
-            Username = registerRequest.Username,
-            Email = registerRequest.Email,
-            Name = registerRequest.Name,
-            Lastname = registerRequest.Lastname,
-            Password = registerRequest.Password
-        });
-        
-        return Created($"api/v1/users/{registration.Id}", registration.Id);
     }
 }

@@ -72,7 +72,7 @@ public class CategoryService : ICategoryService
 
     public async Task CreateDefaultCategories(Guid userId)
     {
-        using (var reader = new StreamReader("Infrastructure/Data-access/Repository/DefaultCategories.json"))
+        using (var reader = new StreamReader("Infrastructure/DataAccess/Repository/DefaultCategories.json"))
         {
             var json = await reader.ReadToEndAsync();
             var defaultCategories = JsonConvert.DeserializeObject<List<Domain.Category>>(json);
