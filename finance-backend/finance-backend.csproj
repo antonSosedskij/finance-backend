@@ -30,6 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="API\Dto\Balance\" />
       <Folder Include="Application\Services\User\Contracts\" />
     </ItemGroup>
 

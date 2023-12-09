@@ -7,7 +7,7 @@ public interface ICategoryService
     public Task CreateDefaultCategories(Guid id);
     public Task<CreateCategory.Response> Create(CreateCategory.Request request);
 
-    public Task<GetCategory.Response> GetCategory(GetCategory.Request request);
+    public Task<GetCategoryResponse> GetCategoryById(Guid id);
 
     public Task<GetCategories.Response> GetCategories();
 

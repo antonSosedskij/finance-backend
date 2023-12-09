@@ -8,10 +8,14 @@ public class Balance : MutableEntity<Guid>
     public string Title { get; set; } 
         
     public decimal Percent { get; set; }
-    
+
     public virtual Category Category { get; set; }
-    
+
     public Guid CategoryId { get; set; }
-    
+
+    public virtual User User { get; set; }
+
+    public Guid UserId { get; set; }
+
     public virtual IEnumerable<Expense> Expenses { get; set; }
 }

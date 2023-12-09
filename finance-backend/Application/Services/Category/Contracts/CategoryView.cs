@@ -1,9 +1,11 @@
-namespace finance_backend.Application.Services.Category.Contracts;
-
-public class GetCategory
+﻿namespace finance_backend.Application.Services.Category.Contracts
 {
-    public sealed class Response
+    public class CategoryView
     {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public Owner User { get; set; }
+
         public sealed class Owner
         {
             public Guid Id { get; set; }
@@ -12,8 +14,5 @@ public class GetCategory
             public string Name { get; set; }
             public string Lastname { get; set; }
         }
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public Owner User { get; set; }
     }
 }

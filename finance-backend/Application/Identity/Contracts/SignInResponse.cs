@@ -1,10 +1,20 @@
-namespace finance_backend.Application.Identity.Contracts;
+using finance_backend.API.Dto;
 
-public class SignInResponse 
+namespace finance_backend.Application.Identity.Contracts
 {
-    public bool IsSuccess { get; set; }
-    public string Token { get; set; }
-    public string Username { get; set; }
-    public Guid Id { get; set; }
-    public string[] Errors { get; set; }
+    /// <summary>
+    /// Класс, представляющий ответ на запрос аутентификации.
+    /// </summary>
+    public class SignInResponse : ErrorResponse, SuccessResponse<SignInSuccessResponse>
+    {
+        /// <summary>
+        /// Получает или задает сообщение об операции аутентификации.
+        /// </summary>
+        public string? Message { get; set; }
+
+        /// <summary>
+        /// Получает или задает данные успешной операции аутентификации.
+        /// </summary>
+        public SignInSuccessResponse? Data { get; set; }
+    }
 }

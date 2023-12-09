@@ -1,9 +1,9 @@
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
-using finance_backend.Application.Services.Balance.Contracts;
 using finance_backend.Application.Services.Category.Contracts;
 using finance_backend.Application.Services.Category.Interfaces;
 using Newtonsoft.Json;
+using static finance_backend.API.Dto.ErrorResponse;
 
 namespace finance_backend.Application.Services.Category.Implementations;
 
@@ -20,22 +20,36 @@ public class CategoryService : ICategoryService
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<GetCategory.Response> GetCategory(GetCategory.Request request)
+    public async Task<GetCategoryResponse> GetCategoryById(Guid id)
     {
-        var category = await _categoryRepository.FindById(request.Id);
+        var category = await _categoryRepository.FindById(id);
 
-        return new GetCategory.Response
+        if (category != null)
         {
-            Id = category.Id,
-            Title = category.Title,
-            User = new GetCategory.Response.Owner
+            return new GetCategoryResponse
             {
-                Id = category.User.Id,
-                Username = category.User.Username,
-                Email = category.User.Email,
-                Name = category.User.Name,
-                Lastname = category.User.Lastname
-            }
+                IsSuccess = false,
+                Data = new CategoryView
+                {
+                    Id = category.Id,
+                    Title = category.Title,
+                    User = new CategoryView.Owner
+                    {
+                        Id = category.User.Id,
+                        Username = category.User.Username,
+                        Email = category.User.Email,
+                        Name = category.User.Name,
+                        Lastname = category.User.Lastname
+                    }
+                }
+            };
+        }
+
+        var error = new ErrorItem("Категория не найдена.");
+        return new GetCategoryResponse
+        {
+            IsSuccess = false,
+            Errors = new[] { error }
         };
     }
 
@@ -78,7 +92,7 @@ public class CategoryService : ICategoryService
             var defaultCategories = JsonConvert.DeserializeObject<List<Domain.Category>>(json);
 
             var newCategories = defaultCategories
-                .Select(c => new Domain.Category
+                .Select((c, index) => new Domain.Category
                 {
                     Id = Guid.NewGuid(),
                     Title = c.Title,
@@ -86,6 +100,23 @@ public class CategoryService : ICategoryService
                     CreatedDate = DateTime.UtcNow
                 })
                 .ToList();
+
+            if (newCategories.Any())
+            {
+                var firstCategory = newCategories.First();
+
+                var defaultBalance = new Domain.Balance
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "Общий",
+                    Percent = 100,
+                    CategoryId = firstCategory.Id,
+                    UserId = userId,
+                    Expenses = new List<Domain.Expense>(),
+                };
+
+                firstCategory.Balances = new List<Domain.Balance> { defaultBalance };
+            }
 
             await _categoryRepository.SaveAll(newCategories);
         }

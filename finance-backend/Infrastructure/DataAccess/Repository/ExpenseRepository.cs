@@ -1,7 +1,5 @@
-using finance_backend.API.Dto;
 using finance_backend.Application.Repositories;
 using finance_backend.Application.Services.Expense.Contracts;
-using finance_backend.DataAccess.Models;
 using finance_backend.Domain;
 using Microsoft.EntityFrameworkCore;
 

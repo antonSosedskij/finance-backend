@@ -38,7 +38,7 @@ public class UserService : IUserService
         {
             var domainUser = new Domain.User
             {
-                Id = response.Id,
+                Id = response.Data,
                 Username = request.Username,
                 Name = request.Name,
                 Lastname = request.Lastname,
@@ -48,12 +48,12 @@ public class UserService : IUserService
 
             await _repository.Save(domainUser);
 
-            await _categoryService.CreateDefaultCategories(response.Id);
+            await _categoryService.CreateDefaultCategories(response.Data);
 
             return new SignUpResponse
             {
                 IsSuccess = true,
-                Id = response.Id,
+                Data = response.Data,
             };
         }
 
@@ -77,9 +77,12 @@ public class UserService : IUserService
             return new SignInResponse
             {
                 IsSuccess = true,
-                Token = response.Token,
-                Id = response.Id,
-                Username = response.Username,
+                Data = new SignInSuccessResponse
+                {
+                    Token = response.Data.Token,
+                    Id = response.Data.Id,
+                    Username = response.Data.Username,
+                },
             };
         }
 

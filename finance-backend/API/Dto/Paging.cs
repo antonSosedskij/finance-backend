@@ -1,8 +1,18 @@
 ﻿namespace finance_backend.API.Dto
 {
+    /// <summary>
+    /// Интерфейс для представления параметров пагинации.
+    /// </summary>
     public interface IPaging
     {
-        public int Page { get; set; }
-        public int Size { get; set; }
+        /// <summary>
+        /// Получает или задает номер страницы.
+        /// </summary>
+        int Page { get; set; }
+
+        /// <summary>
+        /// Получает или задает размер страницы.
+        /// </summary>
+        int Size { get; set; }
     }
 }

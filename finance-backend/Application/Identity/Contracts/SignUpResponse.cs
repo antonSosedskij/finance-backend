@@ -1,8 +1,19 @@
+using finance_backend.API.Dto;
+
 namespace finance_backend.Application.Identity.Contracts;
 
-public class SignUpResponse
+/// <summary>
+/// Класс, представляющий ответ на запрос регистрации.
+/// </summary>
+public class SignUpResponse : ErrorResponse, SuccessResponse<Guid>
 {
-    public bool IsSuccess { get; set; }
-    public Guid Id { get; set; }
-    public string[] Errors { get; set; }
+    /// <summary>
+    /// Получает или задает дополнительное сообщение об успешной операции регистрации.
+    /// </summary>
+    public string? Message { get; set; }
+
+    /// <summary>
+    /// Получает или задает данные успешной операции регистрации.
+    /// </summary>
+    public Guid Data { get; set; }
 }

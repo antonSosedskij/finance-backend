@@ -1,18 +1,19 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using finance_backend.API.Dto;
 using finance_backend.Application.Identity.Contracts;
 using finance_backend.Application.Identity.Interfaces;
 using finance_backend.Application.Repositories;
-using finance_backend.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static finance_backend.API.Dto.ErrorResponse;
 
 namespace finance_backend.DataAccess.Models.Identity;
 
 public class IdentityService : IIdentityService
 {
-
     private readonly UserManager<IdentityUser<Guid>> _userManager;
     private readonly SignInManager<IdentityUser<Guid>> _signInManager;
     private readonly IConfiguration _configuration;
@@ -46,10 +47,11 @@ public class IdentityService : IIdentityService
 
         if (existedUser != null)
         {
+            var errorItem = new ErrorItem("Пользователь с таким email уже есть в системе.");
             return new SignUpResponse
             {
                 IsSuccess = false,
-                Errors = new[] { "Пользователь с таким email уже есть в системе." }
+                Errors = new List<ErrorItem> { errorItem },
             };
         }
 
@@ -66,18 +68,17 @@ public class IdentityService : IIdentityService
             return new SignUpResponse
             {
                 IsSuccess = true,
-                Id = newUser.Id
+                Data = newUser.Id
             };
         }
 
         return new SignUpResponse
         {
             IsSuccess = false,
-            Errors = identityResult.Errors.Select(x => x.Description).ToArray(),
+            Errors = identityResult.Errors.Select(x => new ErrorItem(x.Description)).ToArray()
         };
 
     }
-
 
     public async Task<SignInResponse> SignIn(SignInRequest request)
     {
@@ -86,10 +87,11 @@ public class IdentityService : IIdentityService
 
         if (userByEmail == null)
         {
+            var error = new ErrorItem("Пользователь с таким email уже есть в системе.");
             return new SignInResponse
             {
                 IsSuccess = false,
-                Errors = new[] { "Пользователь с таким email не найден в системе." }
+                Errors = new[] { error }
             };
         }
         else
@@ -101,10 +103,11 @@ public class IdentityService : IIdentityService
 
         if (!signInResult.Succeeded)
         {
+            var error = new ErrorItem("Вы ввели не правильный email или пароль.");
             return new SignInResponse
             {
                 IsSuccess = false,
-                Errors = new[] { "Вы ввели не правильный email или пароль." }
+                Errors = new[] { error },
             };
         }
 
@@ -130,9 +133,12 @@ public class IdentityService : IIdentityService
         return new SignInResponse
         {
             IsSuccess = true,
-            Token = new JwtSecurityTokenHandler().WriteToken(token),
-            Username = domainUser.Username,
-            Id = domainUser.Id,
+            Data = new SignInSuccessResponse
+            {
+                Id = domainUser.Id,
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Username = domainUser.Username,
+            },
             Errors = null
         };
     }

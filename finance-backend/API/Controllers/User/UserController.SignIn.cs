@@ -39,20 +39,17 @@ public partial class UserController : ControllerBase
         {
             return Ok(new SignInSuccessResponse
             {
-                Token = response.Token,
-                Id = response.Id,
-                Username = response.Username,
+                Token = response.Data.Token,
+                Id = response.Data.Id,
+                Username = response.Data.Username,
             });
         }
 
-        var errorItems = response.Errors.Select(error => new ErrorResponse.ErrorItem
-        {
-            Error = "Ошибка входа",
-            Message = error
-        });
+        var errorItems = response.Errors.Select(error => new ErrorResponse.ErrorItem(error.Error));
 
         return BadRequest(new ErrorResponse
         {
+            IsSuccess = false,
             Errors = errorItems.ToList()
         });
     }
