@@ -1,14 +1,33 @@
-﻿using finance_backend.Application.Identity.Contracts;
+﻿using finance_backend.API.Dto;
+using finance_backend.Application.Identity.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace finance_backend.API.Controllers.User;
 
 public partial class UserController : ControllerBase
 {
+    /// <summary>
+    /// Регистрация нового пользователя.
+    /// </summary>
+    /// <remarks>
+    /// Пример запроса:
+    ///
+    ///     POST /User/signup
+    ///     {
+    ///        "username": "string",
+    ///        "email": "string@gmail.com",
+    ///        "name": "string",
+    ///        "lastname": "string",
+    ///        "password": "Qwerty123!"
+    ///     }
+    /// </remarks>
+    /// <param name="request">Модель запроса для регистрации: SignUpRequest.</param>
+    /// <returns>Результат регистрации пользователя.</returns>
+    /// <response code="201">Регистрация выполнена успешно.</response>
+    /// <response code="400">Ошибка регистрации. Возвращается в случае неверных данных или других проблем при регистрации.</response>
     [HttpPost("signup")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SignInResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<SignInResponse>> SignUp([FromBody] SignUpRequest request)
     {
         var signUpResponse = await _userService.SignUp(new SignUpRequest
@@ -36,6 +55,5 @@ public partial class UserController : ControllerBase
         }
 
         return BadRequest(signUpResponse);
-
     }
 }

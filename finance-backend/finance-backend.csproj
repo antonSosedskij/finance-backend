@@ -10,6 +10,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="Application\Services\User\Contracts\**" />
+      <Content Remove="Application\Services\User\Contracts\**" />
+      <EmbeddedResource Remove="Application\Services\User\Contracts\**" />
+      <None Remove="Application\Services\User\Contracts\**" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.11" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
@@ -31,7 +38,6 @@
 
     <ItemGroup>
       <Folder Include="API\Dto\Balance\" />
-      <Folder Include="Application\Services\User\Contracts\" />
     </ItemGroup>
 
 </Project>

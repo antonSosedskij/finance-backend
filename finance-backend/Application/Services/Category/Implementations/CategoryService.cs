@@ -29,11 +29,11 @@ public class CategoryService : ICategoryService
             return new GetCategoryResponse
             {
                 IsSuccess = false,
-                Data = new CategoryView
+                Data = new Contracts.Category
                 {
                     Id = category.Id,
                     Title = category.Title,
-                    User = new CategoryView.Owner
+                    User = new Contracts.Category.Owner
                     {
                         Id = category.User.Id,
                         Username = category.User.Username,

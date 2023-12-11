@@ -1,18 +1,27 @@
-using finance_backend.Application.Services.Expense.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Finance_Backend.Controllers;
-
-public partial class ExpensesController
+namespace Finance_Backend.Controllers
 {
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public partial class ExpensesController
     {
-        var expense = await _expenseService.GetById(new GetExpense.Request
+        /// <summary>
+        /// Получение информации о расходе по его идентификатору.
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса:
+        ///
+        ///     GET /Expenses/{id}
+        /// </remarks>
+        /// <param name="id">Идентификатор расхода.</param>
+        /// <returns>Информация о расходе.</returns>
+        /// <response code="200">Информация о расходе успешно получена.</response>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            Id = id
-        });
+            var expense = await _expenseService.GetById(id);
 
-        return Ok(expense);
+            return Ok(expense);
+        }
+
     }
 }

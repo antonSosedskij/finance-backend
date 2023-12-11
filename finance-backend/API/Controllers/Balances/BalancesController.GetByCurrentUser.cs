@@ -3,26 +3,46 @@ using finance_backend.Application.Services.Balance.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using static finance_backend.API.Dto.ErrorResponse;
 
-namespace finance_backend.API.Controllers.Balances;
-public partial class BalancesController
+namespace finance_backend.API.Controllers.Balances
 {
-    [HttpPost("GetPagedBalancesForCurrentUser")]
-    public async Task<ActionResult<PagedBalances>> GetPagedBalancesForCurrentUser([FromBody] BalancePagedRequest request)
+    public partial class BalancesController
     {
-        if (request.Page < 1 || request.Size <= 0)
+        /// <summary>
+        /// Получение пагинированного списка балансов для текущего пользователя.
+        /// </summary>
+        /// <remarks>
+        /// Пример запроса:
+        ///
+        ///     POST /Balances/Paged
+        ///     {
+        ///        "page": 1,
+        ///        "pageSize": 10
+        ///     }
+        /// </remarks>
+        /// <param name="request">Модель запроса для получения пагинированного списка балансов: BalancePagedRequest.</param>
+        /// <returns>Пагинированный список балансов для текущего пользователя.</returns>
+        /// <response code="200">Пагинированный список балансов успешно получен.</response>
+        /// <response code="400">Ошибка при запросе пагинированного списка балансов. Возвращается в случае неверных параметров запроса.</response>
+        [HttpPost("paged")]
+        [ProducesResponseType(typeof(PagedBalances), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PagedBalances>> GetPagedBalancesForCurrentUser([FromBody] BalancePagedRequest request)
         {
-            var error = new ErrorItem("Page должен быть больше 0, Size должен быть больше 0.");
-            var errorResponse = new ErrorResponse
+            if (request.Page < 1 || request.Size <= 0)
             {
-                IsSuccess = false,
-                Errors = new List<ErrorItem> { error },
-            };
+                var error = new ErrorItem("Page должен быть больше 0, Size должен быть больше 0.");
+                var errorResponse = new ErrorResponse
+                {
+                    IsSuccess = false,
+                    Errors = new List<ErrorItem> { error },
+                };
 
-            return BadRequest(errorResponse);
+                return BadRequest(errorResponse);
+            }
+
+            var balances = await _balanceService.GetPagedBalancesForCurrentUser(request);
+
+            return Ok(balances);
         }
-
-        var expenses = await _balanceService.GetPagedBalancesForCurrentUser(request);
-
-        return Ok(expenses);
     }
 }

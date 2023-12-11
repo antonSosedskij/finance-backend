@@ -2,10 +2,6 @@ namespace finance_backend.Application.Services.Expense.Contracts;
 
 public static class GetExpense
 {
-    public sealed class Request
-    {
-        public Guid Id { get; set; }
-    }
     
     public sealed class Response
     {

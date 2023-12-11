@@ -19,7 +19,7 @@ public class ExpenseService : IExpenseService
         _identityService = identityService;
     }
     
-    public async Task<CreateExpense.Response> CreateExpense(CreateExpense.Request request)
+    public async Task<CreateExpense.Response> CreateExpense(CreateExpenseRequest request)
     {
         var currentUserId = await _identityService.GetCurrentUserId();
 
@@ -44,9 +44,9 @@ public class ExpenseService : IExpenseService
         };
     }
 
-    public async Task<GetExpense.Response> GetById(GetExpense.Request request)
+    public async Task<GetExpense.Response> GetById(Guid id)
     {
-        var expense = await _expenseRepository.FindById(request.Id);
+        var expense = await _expenseRepository.FindById(id);
 
         return new GetExpense.Response
         {
@@ -69,6 +69,11 @@ public class ExpenseService : IExpenseService
         };
     }
 
+    /// <summary>
+    /// Получение пагинированного списка расходов для текущего пользователя.
+    /// </summary>
+    /// <param name="request">Модель запроса для получения пагинированного списка расходов: ExpensesRequest.</param>
+    /// <returns>Пагинированный список расходов для текущего пользователя: PagedExpenses.</returns>
     public async Task<PagedExpenses> GetPagedExpensesForCurrentUser(ExpensesRequest request)
     {
         var userId = await _identityService.GetCurrentUserId();

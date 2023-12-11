@@ -2,7 +2,7 @@
 
 namespace finance_backend.Application.Services.Category.Contracts
 {
-    public class GetCategoryResponse : ErrorResponse, SuccessResponse<CategoryView>
+    public class GetCategoryResponse : ErrorResponse, SuccessResponse<Category>
     {
         /// <summary>
         /// Получает или задает дополнительное сообщение об успешной операции регистрации.
@@ -12,6 +12,6 @@ namespace finance_backend.Application.Services.Category.Contracts
         /// <summary>
         /// Получает или задает данные успешной операции регистрации.
         /// </summary>
-        public CategoryView? Data { get; set; }
+        public Category? Data { get; set; }
     }
 }
