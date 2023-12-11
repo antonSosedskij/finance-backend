@@ -1,5 +1,4 @@
 using finance_backend.API.Dto;
-using finance_backend.API.Dto.Category;
 using finance_backend.Application.Services.Category.Contracts;
 using finance_backend.Domain;
 using Microsoft.AspNetCore.Mvc;

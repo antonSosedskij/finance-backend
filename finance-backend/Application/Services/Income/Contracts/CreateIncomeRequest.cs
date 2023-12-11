@@ -1,4 +1,4 @@
-namespace finance_backend.API.Dto.Income
+namespace finance_backend.Application.Services.Income.Contracts
 {
     /// <summary>
     ///  ласс, представл€ющий запрос на создание дохода.

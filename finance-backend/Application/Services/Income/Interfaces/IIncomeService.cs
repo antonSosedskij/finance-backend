@@ -4,7 +4,7 @@ namespace finance_backend.Application.Services.Income.Interfaces;
 
 public interface IIncomeService
 {
-    public Task<CreateIncome.Response> CreateIncome(CreateIncome.Request request);
+    public Task<CreateIncome.Response> CreateIncome(CreateIncomeRequest request);
     
     public Task<GetByUserId.Response> GetCurrentUserIncomes();
     

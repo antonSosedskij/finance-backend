@@ -18,7 +18,7 @@ public class IncomeService : IIncomeService
         _identityService = identityService;
     }
 
-    public async Task<CreateIncome.Response> CreateIncome(CreateIncome.Request request)
+    public async Task<CreateIncome.Response> CreateIncome(CreateIncomeRequest request)
     {
         var currentUserId = await _identityService.GetCurrentUserId();
 

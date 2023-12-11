@@ -1,4 +1,4 @@
-namespace finance_backend.API.Dto.Category
+namespace finance_backend.Application.Services.Category.Contracts
 {
     /// <summary>
     ///  ласс, представл€ющий запрос на создание категории.
