@@ -1,5 +1,7 @@
 ﻿using finance_backend.API.Dto;
 using finance_backend.Application.Services.Balance.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static finance_backend.API.Dto.ErrorResponse;
 

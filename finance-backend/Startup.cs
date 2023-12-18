@@ -1,9 +1,12 @@
 ﻿using finance_backend.DataAccess.Models;
 using finance_backend.Infrastructure;
 using finance_backend.Infrastructure.Data_access;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 namespace finance_backend;
 
@@ -57,8 +60,19 @@ public class Startup
 
         services.AddHttpContextAccessor();
         services.AddIdentity(Configuration);
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Token:Key"]))
+                };
+            });
 
-        
         services.AddControllers();
     }
 

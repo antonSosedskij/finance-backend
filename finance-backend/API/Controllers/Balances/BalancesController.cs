@@ -1,5 +1,7 @@
 using finance_backend.Application.Services.Balance.Interfaces;
 using finance_backend.Application.Services.Category.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finance_backend.API.Controllers.Balances
@@ -7,6 +9,7 @@ namespace finance_backend.API.Controllers.Balances
     /// <summary>
     ///  онтроллер дл€ управлени€ операци€ми с балансами.
     /// </summary>
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/[controller]")]
     public partial class BalancesController : ControllerBase
